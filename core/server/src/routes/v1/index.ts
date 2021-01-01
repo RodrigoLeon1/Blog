@@ -1,8 +1,10 @@
 import express from 'express'
-import user from './user/user'
+import users from './user'
+import articles from './article'
 
 const router = express.Router()
 
-router.use('/api/v1/users', user)
+router.use('/api/v1/users', users)
+router.use('/api/v1/articles', articles)
 
 export default router

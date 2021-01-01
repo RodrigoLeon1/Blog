@@ -1,24 +1,34 @@
 import bcrypt from 'bcrypt'
-import IUser from '../model/user/IUser'
+import User, { IUser } from '../model/user/IUser'
 
 export default class UserRepository {
-  public static save(): string {
-    return 'testing'
+  //
+  public static async save(name: string, email: string, password: string) {
+    const passwordHash = await bcrypt.hash(password, 10)
+    await User.create({
+      name,
+      email,
+      password: passwordHash,
+      articles: [],
+      comments: [],
+    })
   }
 
-  public static findAll(): string {
-    return 'All users'
+  public static async findAll() {
+    const users = await User.find()
+    return users
   }
 
-  public static findById(id: number): string {
-    return `User ${id}`
+  public static async findById(id: string) {
+    const user = await User.findById(id)
+    return user
   }
 
-  public static updateById(id: number): string {
-    return `User ${id}`
+  public static async updateById(id: string, userUpdated: IUser) {
+    await User.findByIdAndUpdate(id, {})
   }
 
-  public static deleteById(id: number): string {
-    return `User ${id}`
+  public static async deleteById(id: string) {
+    await User.findByIdAndDelete(id)
   }
 }

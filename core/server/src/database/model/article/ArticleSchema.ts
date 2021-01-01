@@ -1,36 +1,29 @@
 import { Schema } from 'mongoose'
 
-const UserSchema: Schema = new Schema(
+const ArticleSchema: Schema = new Schema(
   {
     name: {
       type: Schema.Types.String,
       required: true,
       maxlength: 100,
     },
-    email: {
+    content: {
       type: Schema.Types.String,
       required: true,
-      unique: true,
     },
-    password: {
-      type: Schema.Types.String,
-      required: true,
-      select: false,
-    },
-    profileImgUrl: {
-      type: Schema.Types.String,
+    likes: {
+      type: Schema.Types.Number,
       required: false,
+      default: 0,
     },
-    roles: [
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    tags: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Role',
-      },
-    ],
-    articles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Article',
+        ref: 'Tag',
       },
     ],
     comments: [
@@ -50,4 +43,4 @@ const UserSchema: Schema = new Schema(
   }
 )
 
-export default UserSchema
+export default ArticleSchema

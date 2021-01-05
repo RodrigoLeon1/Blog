@@ -1,4 +1,4 @@
-import Article, { IArticle } from '../model/article/IArticle'
+import Article from '../model/article/IArticle'
 
 export default class ArticleRepository {
   public static async save(article: any) {

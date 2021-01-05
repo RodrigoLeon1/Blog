@@ -32,6 +32,11 @@ const ArticleSchema: Schema = new Schema(
         ref: 'Comment',
       },
     ],
+    isPublished: {
+      type: Schema.Types.Boolean,
+      default: true,
+      select: false,
+    },
     status: {
       type: Schema.Types.Boolean,
       default: true,

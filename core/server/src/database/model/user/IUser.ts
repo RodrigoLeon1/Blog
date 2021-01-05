@@ -11,8 +11,8 @@ export interface IUser extends Document {
   email: string
   password: string
   profileImgUrl?: string
-  articles: [IArticle['_id']]
-  comments: [IComment['_id']]
+  articles?: [IArticle['_id']]
+  comments?: [IComment['_id']]
   status?: boolean
 }
 

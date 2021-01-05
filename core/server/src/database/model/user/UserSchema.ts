@@ -21,24 +21,22 @@ const UserSchema: Schema = new Schema(
       type: Schema.Types.String,
       required: false,
     },
-    roles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Role',
-      },
-    ],
-    articles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Article',
-      },
-    ],
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment',
-      },
-    ],
+    articles: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Article',
+        },
+      ],
+    },
+    comments: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Comment',
+        },
+      ],
+    },
     status: {
       type: Schema.Types.Boolean,
       default: true,

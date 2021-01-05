@@ -17,7 +17,9 @@
     "object-curly-newline": "off",
     "import/extensions": "off",
     "semi": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "lines-between-class-members": "off",
+    "nonblock-statement-body-position": "off"
   },
   "settings": {
     "import/resolver": {

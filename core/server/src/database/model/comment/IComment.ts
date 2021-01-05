@@ -3,8 +3,8 @@ import { IArticle } from '../article/IArticle'
 import { IUser } from '../user/IUser'
 import CommentSchema from './CommentSchema'
 
-export const DOCUMENT_NAME = 'Article'
-export const COLLECTION_NAME = 'articles'
+export const DOCUMENT_NAME = 'Comment'
+export const COLLECTION_NAME = 'comments'
 
 export interface IComment extends Document {
   content: string

@@ -1,0 +1,24 @@
+.sidebar__link {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: black;
+  padding: 0.5rem 1rem;
+}
+
+.sidebar__link:hover {
+  color: #ffa500;
+}
+
+.sidebar__link i {
+  padding-right: 5px;
+}
+
+.sidebar__link--active {
+  background-color: #ffa500;
+  border-radius: 10px;
+}
+
+.sidebar__link--active:hover {
+  color: black;
+  background-color: #eb9902;
+}

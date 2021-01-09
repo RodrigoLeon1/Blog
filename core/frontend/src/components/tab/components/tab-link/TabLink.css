@@ -1,6 +1,11 @@
+/* Bootstrap override */
 .nav-tabs .nav-link {
   border: 2px solid transparent;
   font-size: 0.9rem;
+}
+
+.nav-tabs .nav-link i {
+  padding-right: 0.5rem;
 }
 
 .nav-tabs .nav-link:focus,

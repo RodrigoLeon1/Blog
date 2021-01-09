@@ -2,11 +2,11 @@ import react from 'react'
 import ITabLinkProps from './ITabLinkProps'
 import './TabLink.css'
 
-const TabLink = ({ icon, name }: ITabLinkProps) => {
+const TabLink = ({ icon, name, active }: ITabLinkProps) => {
   return (
     <li className='nav-item' role='presentation'>
       <a
-        className='nav-link'
+        className={`nav-link ${active ? 'active' : ''}`}
         id={`${name}_tab`}
         data-bs-toggle='tab'
         href={`#${name}`}

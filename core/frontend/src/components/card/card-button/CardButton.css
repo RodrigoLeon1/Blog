@@ -1,0 +1,12 @@
+.customs-cards__btn {
+  color: black;
+  background-color: #ffa500;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.customs-cards__btn:hover {
+  color: black;
+  background-color: #eb9902;
+}

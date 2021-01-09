@@ -1,0 +1,11 @@
+.post__title {
+  font-weight: 600;
+}
+
+.post__meta {
+  color: #333;
+}
+
+.post__meta span {
+  margin-right: 1.5rem;
+}

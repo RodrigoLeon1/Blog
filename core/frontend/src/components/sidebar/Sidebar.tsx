@@ -1,4 +1,3 @@
-import react from 'react'
 import SidebarList from './components/sidebar-list/SidebarList'
 import './Sidebar.css'
 

@@ -1,12 +1,12 @@
-import react from 'react'
 import ICardButtonProps from './ICardButtonProps'
+import { NavLink } from 'react-router-dom'
 import './CardButton.css'
 
-const CardButton = ({ href, text }: ICardButtonProps) => {
+const CardButton = ({ id, text }: ICardButtonProps) => {
   return (
-    <a href={href} className='customs-cards__btn'>
+    <NavLink exact to={`/posts/${id}`} className='customs-cards__btn'>
       {text}
-    </a>
+    </NavLink>
   )
 }
 

@@ -1,4 +1,3 @@
-import react from 'react'
 import ICardImageProps from './ICardImageProps'
 import './CardImage.css'
 

@@ -1,8 +1,7 @@
-import react from 'react'
 import ITabPaneProps from './ITabPaneProps'
 import Card from '../../../card/Card'
 
-const TabPane = ({ name, active }: ITabPaneProps) => {
+const TabPane = ({ name, articles, active }: ITabPaneProps) => {
   return (
     <div
       className={`tab-pane fade show ${active ? 'active' : ''}`}
@@ -10,16 +9,24 @@ const TabPane = ({ name, active }: ITabPaneProps) => {
       role='tabpanel'
       aria-labelledby={`${name}_tab`}
     >
-      <Card
-        src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/photo-1429043794791-eb8f26f44081.jpeg'
-        name='imageName'
-        title='How to use pointers in C++'
-        author='Rodrigo Leon'
-        likes={100}
-        description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis repudiandae architecto, debitis, odio voluptatibus deserunt fuga voluptate facilis ad quod labore, alias incidunt veniam non? Quibusdam numquam deserunt fugit exercitationem.'
-        href=''
-        textBtn='View more'
-      />
+      {articles ? (
+        articles.map((article) => (
+          <Card
+            id={article._id}
+            src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/photo-1429043794791-eb8f26f44081.jpeg'
+            name={article.name}
+            title={article.name}
+            author={article.user.name}
+            likes={article.likes}
+            description={article.content.substr(0, 350)}
+            href={`/posts/${article._id}`}
+            textBtn='View more'
+            key={article._id}
+          />
+        ))
+      ) : (
+        <p className='text-center'>Empty list.</p>
+      )}
     </div>
   )
 }

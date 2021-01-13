@@ -24,6 +24,25 @@ a:hover {
   overflow-x: hidden;
 }
 
+.btn-primary {
+  color: black;
+  background-color: #ffa500;
+  border-color: #ffa500;
+}
+
+.btn-primary:hover {
+  color: black;
+  background-color: #eb9902;
+  border-color: #eb9902;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: black;
+  background-color: #eb9902;
+  border-color: #eb9902;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;

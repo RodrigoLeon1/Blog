@@ -1,4 +1,3 @@
-import react from 'react'
 import IAppTitleProps from './IAppTitleProps'
 
 const AppTitle = ({ title }: IAppTitleProps) => {

@@ -1,4 +1,3 @@
-import react from 'react'
 import ICardDescriptionProps from './ICardDescriptionProps'
 import './CardDescription.css'
 

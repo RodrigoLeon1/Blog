@@ -1,4 +1,3 @@
-import react from 'react'
 import ITabLinkProps from './ITabLinkProps'
 import './TabLink.css'
 

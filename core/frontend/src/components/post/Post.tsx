@@ -1,8 +1,7 @@
-import react from 'react'
+import IPostProps from './IPostProps'
 import PostMeta from './post-meta/PostMeta'
 import PostImage from './post-image/PostImage'
 import PostContent from './post-content/PostContent'
-import IPostProps from './IPostProps'
 
 const Post = ({ title, date, author, src, alt, content }: IPostProps) => {
   return (

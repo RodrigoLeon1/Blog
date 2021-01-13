@@ -1,4 +1,5 @@
 export default interface ICardProps {
+  id: string
   src: string
   name: string
   title: string

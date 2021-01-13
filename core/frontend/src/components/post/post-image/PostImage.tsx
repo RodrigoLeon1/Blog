@@ -1,4 +1,3 @@
-import react from 'react'
 import IPostImageProps from './IPostImageProps'
 import './PostImage.css'
 

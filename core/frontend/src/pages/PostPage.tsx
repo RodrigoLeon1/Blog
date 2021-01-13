@@ -1,18 +1,42 @@
-import react from 'react'
+import { useParams } from 'react-router-dom'
+import useFetch from '../hooks/useFetch'
+import { Http } from '../utils/enum/http/Http'
+import IPost from '../utils/interfaces/post/IPost'
 import Post from '../components/post/Post'
+import Loading from '../components/loading/Loading'
+import Alert from '../components/alert/Alert'
+import { AlertType } from '../components/alert/AlertType'
+import { DateFormat } from '../helpers/DateFormat'
 
 const PostPage = () => {
+  const { id } = useParams<{ id: string }>()
+  const { data: post, error, isLoading } = useFetch<IPost>(
+    `articles/${id}`,
+    Http.GET
+  )
+
   return (
-    <div className='custom-container m-auto'>
-      <Post
-        title='Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis, id?'
-        date='01/12/2021'
-        author='Rodrigo Leon'
-        src='https://screenlane.com/media/screenshots/feedly-web-app-screenshot-5e37f017.jpg'
-        alt='t'
-        content='Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla illo odio soluta debitis animi autem reprehenderit ad quod dolore quam odit blanditiis quos doloribus quidem temporibus molestiae, quasi et? Aspernatur quam modi provident soluta libero in facilis aut ipsam blanditiis repudiandae est debitis mollitia, nostrum temporibus ex laboriosam, expedita, sed dolor officiis nulla molestiae cum sapiente? Vel, labore? Accusantium, harum. Ullam perferendis magnam dolorum repudiandae ex nihil atque dicta, tempora nam, sunt ad modi excepturi maiores deserunt earum vel ab nulla esse impedit in iste soluta! Laborum, quasi aliquid. Modi voluptates quae dignissimos animi dolores aspernatur sed iure possimus incidunt?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla illo odio soluta debitis animi autem reprehenderit ad quod dolore quam odit blanditiis quos doloribus quidem temporibus molestiae, quasi et? Aspernatur quam modi provident soluta libero in facilis aut ipsam blanditiis repudiandae est debitis mollitia, nostrum temporibus ex laboriosam, expedita, sed dolor officiis nulla molestiae cum sapiente? Vel, labore? '
-      />
-    </div>
+    <>
+      {error && (
+        <Alert
+          type={AlertType.DANGER}
+          err='Error fetching data from API. Try later!'
+        />
+      )}
+      {isLoading && <Loading customClassName='loading-container' />}
+      <div className='custom-container m-auto'>
+        {post && (
+          <Post
+            title={post.name}
+            date={DateFormat(post.createdAt)}
+            author={post.user.name}
+            src='https://screenlane.com/media/screenshots/feedly-web-app-screenshot-5e37f017.jpg'
+            alt='t'
+            content={post.content}
+          />
+        )}
+      </div>
+    </>
   )
 }
 

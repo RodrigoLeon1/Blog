@@ -1,13 +1,18 @@
-import react from 'react'
 import ISidebarLinkProps from './ISidebarLinkProps'
+import { NavLink } from 'react-router-dom'
 import './SidebarLink.css'
 
-const SidebarLink = ({ icon, name }: ISidebarLinkProps) => {
+const SidebarLink = ({ path, icon, name }: ISidebarLinkProps) => {
   return (
-    <a href='#' className='sidebar__link'>
+    <NavLink
+      exact
+      to={`/${path}`}
+      className='sidebar__link'
+      activeClassName='sidebar__link--active'
+    >
       <i className={icon}></i>
       {name}
-    </a>
+    </NavLink>
   )
 }
 

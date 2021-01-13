@@ -1,4 +1,3 @@
-import react from 'react'
 import ICardMetaProps from './ICardMetaProps'
 import './CardMeta.css'
 

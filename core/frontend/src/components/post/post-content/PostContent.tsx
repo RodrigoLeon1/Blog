@@ -1,4 +1,3 @@
-import react from 'react'
 import IPostContentProps from './IPostContentProps'
 import './PostContent.css'
 

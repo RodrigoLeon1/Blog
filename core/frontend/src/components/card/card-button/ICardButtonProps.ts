@@ -1,4 +1,4 @@
 export default interface ICardButtonProps {
-  href: string
+  id: string
   text: string
 }

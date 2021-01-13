@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import routes from '../routes/v1/index'
+var cors = require('cors')
 
 // Loads .env files
 dotenv.config()
@@ -25,6 +26,8 @@ mongoose
   .catch((err) => {
     console.log('Error: ', err)
   })
+
+server.use(cors())
 
 // Parse application/x-www-form-urlencoded
 server.use(bodyParser.urlencoded({ extended: false }))

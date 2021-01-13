@@ -1,17 +1,21 @@
-import react from 'react'
+import useFetch from '../hooks/useFetch'
+import { Http } from '../utils/enum/http/Http'
+import IPost from '../utils/interfaces/post/IPost'
 import AppTitle from '../components/app-title/AppTitle'
 import Tab from '../components/tab/Tab'
 
 const HomePage = () => {
-  // Get 'latests' and 'popular' posts
+  const { data: latestPost } = useFetch<IPost[]>(`articles/`, Http.GET)
+  const { data: popularPosts } = useFetch<IPost[]>(`articles/popular`, Http.GET)
+
   return (
     <>
       <AppTitle title='Welcome to BlogApp!' />
       <Tab
         primaryTab='Latest'
-        primaryArticles={{}}
+        primaryArticles={latestPost}
         secondaryTab='Popular'
-        secondaryArticles={{}}
+        secondaryArticles={popularPosts}
       />
     </>
   )

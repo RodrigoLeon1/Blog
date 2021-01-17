@@ -1,5 +1,5 @@
 export interface IFormData {
-  title: string
+  name: string
   content: string
   image: string
 }

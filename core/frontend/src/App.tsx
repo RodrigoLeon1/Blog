@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Sidebar from './components/sidebar/Sidebar'
 import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
 import NewPostPage from './pages/NewPostPage'
 import PostPage from './pages/PostPage'
+import RegisterPage from './pages/RegisterPage'
 
 const App = () => {
   return (
@@ -20,6 +22,12 @@ const App = () => {
               </Route>
               <Route path='/posts/:id'>
                 <PostPage />
+              </Route>
+              <Route exact path='/register'>
+                <RegisterPage />
+              </Route>
+              <Route exact path='/login'>
+                <LoginPage />
               </Route>
               <Route path='*'>404 page</Route>
             </Switch>

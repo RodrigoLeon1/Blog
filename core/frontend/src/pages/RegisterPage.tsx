@@ -1,41 +1,34 @@
-import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { IFormData } from '../utils/interfaces/form/IFormData'
 import { Http } from '../utils/enum/http/Http'
+import { IRegisterData } from '../utils/interfaces/form/IRegisterData'
 import AppTitle from '../components/app-title/AppTitle'
-import Loading from '../components/loading/Loading'
 import Alert from '../components/alert/Alert'
 import { AlertType } from '../components/alert/AlertType'
+import Loading from '../components/loading/Loading'
 
-const NewPostPage = () => {
-  const history = useHistory()
+const RegisterPage = () => {
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [successPost, setSuccessPost] = useState(false)
-  const { register, handleSubmit, errors } = useForm<IFormData>()
+  const [successRegister, setSuccessRegister] = useState(false)
+  const { register, handleSubmit, errors } = useForm<IRegisterData>()
 
-  const onSubmit = ({ name, content, image }: IFormData, e: any) => {
+  const onSubmit = ({ name, email, password }: IRegisterData, e: any) => {
     setIsLoading(true)
 
-    fetch(`${process.env.REACT_APP_LOCAL_ENDPOINT}/articles`, {
+    fetch(`${process.env.REACT_APP_LOCAL_ENDPOINT}/users`, {
       method: Http.POST,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name,
-        content: content,
-        user: '60037871a2fed62a6ca25fd1', // Hardcoded just for testing
+        email,
+        password,
       }),
     })
       .then((response) => {
         if (!response.ok) throw new Error('Error posting data')
-        setSuccessPost(true)
+        setSuccessRegister(true)
         e.target.reset()
-        setTimeout(() => {
-          history.push({
-            pathname: '/',
-          })
-        }, 2000)
       })
       .catch((err) => setError(true))
       .finally(() => setIsLoading(false))
@@ -43,63 +36,68 @@ const NewPostPage = () => {
 
   return (
     <>
-      <AppTitle title='New post' />
+      <AppTitle title='Register' />
       {error && <Alert type={AlertType.DANGER} msg='Error with API.' />}
-      {successPost ? (
-        <Alert type={AlertType.SUCCESS} msg='Post created with success.' />
+      {successRegister ? (
+        <Alert type={AlertType.SUCCESS} msg='Account created with success.' />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className='mb-5'>
             <label htmlFor='title' className='form-label'>
-              Article title
+              Complete name
             </label>
             <input
               name='name'
               className={`form-control ${errors.name && 'is-invalid'}`}
               ref={register({
                 required: true,
-                max: 150,
+                max: 100,
               })}
             />
             {errors.name && (
-              <div className='invalid-feedback'>Please provide a title.</div>
+              <div className='invalid-feedback'>
+                Please provide a complete name.
+              </div>
             )}
           </div>
           <div className='mb-5'>
-            <label htmlFor='content' className='form-label'>
-              Article content
+            <label htmlFor='email' className='form-label'>
+              Email
             </label>
-            <textarea
-              name='content'
-              className={`form-control ${errors.content && 'is-invalid'}`}
-              rows={8}
+            <input
+              name='email'
+              className={`form-control ${errors.email && 'is-invalid'}`}
               ref={register({
                 required: true,
               })}
             />
-            {errors.content && (
-              <div className='invalid-feedback'>Please provide a content.</div>
+            {errors.email && (
+              <div className='invalid-feedback'>Please provide a email.</div>
             )}
           </div>
           <div className='mb-5'>
             <label htmlFor='formFile' className='form-label'>
-              Article's image
+              Password
             </label>
             <input
-              name='image'
-              className='form-control'
-              type='file'
-              ref={register}
+              name='password'
+              className={`form-control ${errors.password && 'is-invalid'}`}
+              ref={register({
+                required: true,
+              })}
             />
+            {errors.password && (
+              <div className='invalid-feedback'>Please provide a password.</div>
+            )}
           </div>
-          <div className='d-grid gap-2 d-md-flex justify-content-md-end'>
+          <div className='d-grid gap-2 d-md-flex justify-email-md-end'>
             {isLoading ? (
               <button className='btn btn-primary' type='submit' disabled>
                 <Loading customClassName='px-4' />
               </button>
             ) : (
               <button className='btn btn-primary' type='submit'>
-                New post
+                Create account
               </button>
             )}
           </div>
@@ -109,4 +107,4 @@ const NewPostPage = () => {
   )
 }
 
-export default NewPostPage
+export default RegisterPage

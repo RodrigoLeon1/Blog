@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import routes from '../routes/v1/index'
-var cors = require('cors')
+const cors = require('cors')
 
 // Loads .env files
 dotenv.config()

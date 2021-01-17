@@ -7,6 +7,11 @@ export default class CommentRepository {
     })
   }
 
+  public static async findById(id: string) {
+    const user = await Comment.findById(id)
+    return user
+  }
+
   public static async updateById(id: string, comment: any) {
     await Comment.findByIdAndUpdate(id, comment)
     return comment

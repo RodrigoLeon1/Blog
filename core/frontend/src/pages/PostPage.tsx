@@ -20,7 +20,7 @@ const PostPage = () => {
       {error && (
         <Alert
           type={AlertType.DANGER}
-          err='Error fetching data from API. Try later!'
+          msg='Error fetching data from API. Try later!'
         />
       )}
       {isLoading && <Loading customClassName='loading-container' />}

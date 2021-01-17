@@ -16,7 +16,17 @@ export default class UserRepository {
   }
 
   public static async findById(id: string) {
-    const user = await User.findById(id).populate('comments').exec()
+    const user = await User.findById(id)
+    return user
+  }
+
+  public static async findByEmail(email: string) {
+    const user = await User.findOne({ email }).select('email password')
+    return user
+  }
+
+  public static async findByEmailAndPassword(email: string, password: string) {
+    const user = await User.findOne({ email })
     return user
   }
 

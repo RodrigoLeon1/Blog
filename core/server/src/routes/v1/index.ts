@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
 import ApiResponse from '../../utils/api/http/ApiResponse'
 import { ResponseStatus } from '../../utils/api/http/ResponseStatus'
+import auth from './auth'
 import users from './user'
 import articles from './article'
 import comments from './comment'
@@ -8,6 +9,7 @@ import tags from './tag'
 
 const router = express.Router()
 
+router.use('/api/v1/auth', auth)
 router.use('/api/v1/users', users)
 router.use('/api/v1/articles', articles)
 router.use('/api/v1/comments', comments)

@@ -3,20 +3,22 @@ import { Http } from '../utils/enum/http/Http'
 
 const useFetch = <T extends unknown>(endpoint: string, method: Http) => {
   const [data, setData] = useState<T>()
-  const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_LOCAL_ENDPOINT}/${endpoint}`
     fetch(url, {
       method,
     })
-      .then((response) => {
-        if (!response.ok) throw new Error('Error fetching data')
-        return response.json()
+      .then((response) => response.json())
+      .then((object) => {
+        if (object.status >= 400 && object.status <= 500) {
+          setError(true)
+        } else {
+          setData(object.data)
+        }
       })
-      .then((data: any) => setData(data.data))
-      .catch((err) => setError(true))
       .finally(() => setIsLoading(false))
   }, [])
 

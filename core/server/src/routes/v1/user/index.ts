@@ -21,8 +21,8 @@ router.get(
 router.post(
   '/',
   asyncHandler(async (req: Request, res: Response) => {
-    const existMail: [] = await UserRepository.findByEmail(req.body.email)
-    if (existMail.length > 0)
+    const existMail = await UserRepository.findByEmail(req.body.email)
+    if (existMail)
       throw new ApiResponse(
         ResponseStatus.BAD_REQUEST,
         'Email must be unique value'
@@ -49,6 +49,7 @@ router.put(
   '/:id',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
+    // Check if the request user is the same user
     const userId = req.params.id
     const user = await UserRepository.findById(userId)
     if (!user)
@@ -64,6 +65,7 @@ router.delete(
   '/:id',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
+    // Check if the request user is the same user
     const userId = req.params.id
     const user = await UserRepository.findById(userId)
     if (!user)

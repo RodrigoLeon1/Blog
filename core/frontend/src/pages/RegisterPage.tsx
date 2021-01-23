@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Http } from '../utils/enum/http/Http'
@@ -8,15 +9,17 @@ import { AlertType } from '../components/alert/AlertType'
 import Loading from '../components/loading/Loading'
 
 const RegisterPage = () => {
-  const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [successRegister, setSuccessRegister] = useState(false)
+  const history = useHistory()
+  const [error, setError] = useState<boolean>(false)
+  const [errorsFetch, setErrorsFetch] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [successRegister, setSuccessRegister] = useState<boolean>(false)
   const { register, handleSubmit, errors } = useForm<IRegisterData>()
 
   const onSubmit = ({ name, email, password }: IRegisterData, e: any) => {
     setIsLoading(true)
 
-    fetch(`${process.env.REACT_APP_LOCAL_ENDPOINT}/users`, {
+    const init = {
       method: Http.POST,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -24,22 +27,38 @@ const RegisterPage = () => {
         email,
         password,
       }),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error('Error posting data')
-        setSuccessRegister(true)
-        e.target.reset()
+    }
+
+    fetch(`${process.env.REACT_APP_LOCAL_ENDPOINT}/users`, init)
+      .then((response) => response.json())
+      .then((object) => {
+        if (object.status >= 400 && object.status <= 500) {
+          setError(true)
+          setErrorsFetch(object.message)
+        } else {
+          setSuccessRegister(true)
+          e.target.reset()
+          setTimeout(() => {
+            history.push({
+              pathname: '/login',
+            })
+          }, 5000)
+        }
       })
-      .catch((err) => setError(true))
       .finally(() => setIsLoading(false))
   }
 
   return (
     <>
       <AppTitle title='Register' />
-      {error && <Alert type={AlertType.DANGER} msg='Error with API.' />}
+      {error && !successRegister && (
+        <Alert type={AlertType.DANGER} msg={errorsFetch} />
+      )}
       {successRegister ? (
-        <Alert type={AlertType.SUCCESS} msg='Account created with success.' />
+        <Alert
+          type={AlertType.SUCCESS}
+          msg='Account created with success. You will be redirected to the login page in 5 seconds'
+        />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className='mb-5'>

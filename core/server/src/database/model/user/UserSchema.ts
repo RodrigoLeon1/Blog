@@ -21,14 +21,12 @@ const UserSchema: Schema = new Schema(
       type: Schema.Types.String,
       required: false,
     },
-    articles: {
-      type: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Article',
-        },
-      ],
-    },
+    articles: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Article',
+      },
+    ],
     comments: {
       type: [
         {

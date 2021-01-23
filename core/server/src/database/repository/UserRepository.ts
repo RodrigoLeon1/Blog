@@ -11,7 +11,7 @@ export default class UserRepository {
   }
 
   public static async findAll() {
-    const users = await User.find().populate('articles').exec()
+    const users = await User.find().populate('articles')
     return users
   }
 
@@ -21,12 +21,7 @@ export default class UserRepository {
   }
 
   public static async findByEmail(email: string) {
-    const user = await User.findOne({ email }).select('email password')
-    return user
-  }
-
-  public static async findByEmailAndPassword(email: string, password: string) {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }).select('name email password')
     return user
   }
 

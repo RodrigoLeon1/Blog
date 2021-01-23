@@ -15,18 +15,22 @@ router.post(
     const user = await UserRepository.findByEmail(email)
 
     if (!user)
-      throw new ApiResponse(ResponseStatus.NOT_FOUND, 'User not found').send(
-        res
-      )
+      throw new ApiResponse(
+        ResponseStatus.NOT_FOUND,
+        'User email not found'
+      ).send(res)
+
     const canLogin = await bcrypt.compare(password, user.password)
+
     if (!canLogin)
       throw new ApiResponse(ResponseStatus.NOT_FOUND, 'Invalid password').send(
         res
       )
 
     const EXPIRES_IN = 60 * 60
+
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, name: user.name, email: user.email },
       process.env.JWT_SECRET!,
       {
         expiresIn: EXPIRES_IN,
@@ -35,6 +39,7 @@ router.post(
 
     return new ApiResponse(ResponseStatus.SUCCESS).send(res, {
       token,
+      type: 'Bearer',
       EXPIRES_IN,
     })
   })

@@ -10,9 +10,9 @@ import { AlertType } from '../components/alert/AlertType'
 
 const NewPostPage = () => {
   const history = useHistory()
-  const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [successPost, setSuccessPost] = useState(false)
+  const [error, setError] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [successPost, setSuccessPost] = useState<boolean>(false)
   const { register, handleSubmit, errors } = useForm<IFormData>()
 
   const onSubmit = ({ name, content, image }: IFormData, e: any) => {

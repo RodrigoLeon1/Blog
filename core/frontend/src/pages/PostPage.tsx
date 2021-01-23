@@ -31,7 +31,7 @@ const PostPage = () => {
             date={DateFormat(post.createdAt)}
             author={post.user.name}
             src='https://screenlane.com/media/screenshots/feedly-web-app-screenshot-5e37f017.jpg'
-            alt='t'
+            alt={post.name}
             content={post.content}
           />
         )}

@@ -22,7 +22,8 @@ router.post(
   '/',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
-    await ArticleRepository.save({ ...req.body })
+    const { user } = req.session
+    await ArticleRepository.save({ ...req.body, user })
     new ApiResponse(ResponseStatus.CREATED).send(res)
   })
 )
@@ -44,6 +45,7 @@ router.put(
   '/:id',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
+    // Check if the request user is the author of the article to edit
     const articleId = req.params.id
     const article = await ArticleRepository.findById(articleId)
     if (!article)
@@ -59,6 +61,7 @@ router.delete(
   '/:id',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
+    // Check if the request user is the author of the article to delete
     const articleId = req.params.id
     const article = await ArticleRepository.findById(articleId)
     if (!article)

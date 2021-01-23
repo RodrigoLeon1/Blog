@@ -6,7 +6,7 @@ import Tab from '../components/tab/Tab'
 
 const HomePage = () => {
   const { data: latestPost } = useFetch<IPost[]>(`articles/`, Http.GET)
-  const { data: popularPosts } = useFetch<IPost[]>(`articles/popular`, Http.GET)
+  const { data: popularPosts } = useFetch<IPost[]>(`articles/`, Http.GET) // articles/popular -> Endpoint not defined yet
 
   return (
     <>

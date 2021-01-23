@@ -11,7 +11,8 @@ router.post(
   '/',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
-    await CommentRepository.save({ ...req.body })
+    const { user } = req.session
+    await CommentRepository.save({ ...req.body, user })
     new ApiResponse(ResponseStatus.CREATED).send(res)
   })
 )
@@ -20,13 +21,15 @@ router.put(
   '/:id',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
+    // Check if the request user is the author of the comment to edit
+    const { user } = req.session
     const commentId = req.params.id
     const comment = await CommentRepository.findById(commentId)
     if (!comment)
       throw new ApiResponse(ResponseStatus.NOT_FOUND, 'Comment not found').send(
         res
       )
-    await CommentRepository.updateById(commentId, { ...req.body })
+    await CommentRepository.updateById(commentId, { ...req.body, user })
     return new ApiResponse(ResponseStatus.SUCCESS).send(res)
   })
 )
@@ -35,6 +38,7 @@ router.delete(
   '/:id',
   checkAuth,
   asyncHandler(async (req: Request, res: Response) => {
+    // Check if the request user is the author of the comment to delete
     const commentId = req.params.id
     const comment = await CommentRepository.findById(commentId)
     if (!comment)
